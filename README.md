@@ -38,7 +38,7 @@ yarn install
 Crée un fichier `.env.local` à la racine du projet et ajoute la clé :
 
 ```env
-NEXT_PUBLIC_GEMINI_API_KEY="you_key"
+NEXT_PUBLIC_GEMINI_API_KEY="your_key"
 ```
 
 Générer cette clé sur [Google AI Studio](https://aistudio.google.com/apikey).
