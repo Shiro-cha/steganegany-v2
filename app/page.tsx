@@ -140,7 +140,7 @@ export default function StegaApp() {
             </div>
             <div>
               <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
-                StegaVault
+                Steganegany
               </h1>
               <p className="text-sm text-slate-600 dark:text-slate-400">Stéganographie LSB avancée</p>
             </div>
