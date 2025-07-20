@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge"
 import { MessageSquare, Sparkles, Loader2, AlertTriangle } from "lucide-react"
 import { motion } from "framer-motion"
+import { generateContentWithGemini } from "@/utils/gemini"
 
 interface MessageEditorWithAIProps {
   message: string
@@ -28,33 +29,21 @@ export function MessageEditorWithAI({ message, onMessageChange, onGeminiResponse
     { value: "sarcastic", label: "Sarcastique", emoji: "😏" },
   ]
 
-  
   const handleGenerateWithGemini = async () => {
     if (!aiStyle || !message.trim()) return
 
     setIsGenerating(true)
     setGeminiError(false)
 
-    setTimeout(() => {
-
-      if (Math.random() < 0.2) {
-        setGeminiError(true)
-        setIsGenerating(false)
-        return
-      }
-
-      const responses = {
-        meme: "Quand tu réalises que ton message secret est plus caché que tes talents... 🤫✨",
-        poetic: "Dans l'ombre des pixels danse un secret, tel un murmure d'étoiles dans la nuit digitale...",
-        romantic: "Mon cœur bat en binaire pour toi, et ce message n'est qu'un écho de mes sentiments cachés 💖",
-        professional:
-          "Suite à notre échange, je me permets de vous transmettre ces informations confidentielles par ce canal sécurisé.",
-        sarcastic: "Oh génial, encore un message 'ultra secret' que personne ne trouvera jamais... 🙄",
-      }
-
-      onGeminiResponse(responses[aiStyle as keyof typeof responses] || message)
+    try {
+      const generatedMessage = await generateContentWithGemini(message, aiStyle)
+      onGeminiResponse(generatedMessage)
+    } catch (error) {
+      console.error("Erreur Gemini:", error)
+      setGeminiError(true)
+    } finally {
       setIsGenerating(false)
-    }, 2000)
+    }
   }
 
   return (
@@ -139,10 +128,10 @@ export function MessageEditorWithAI({ message, onMessageChange, onGeminiResponse
               <AlertTriangle className="w-4 h-4 text-yellow-600 dark:text-yellow-400 mt-0.5" />
               <div>
                 <p className="text-sm text-yellow-800 dark:text-yellow-200">
-                  <strong>Gemini temporairement indisponible</strong>
+                  <strong>Problème avec Gemini</strong>
                 </p>
                 <p className="text-xs text-yellow-700 dark:text-yellow-300 mt-1">
-                  Vous pouvez continuer avec votre message actuel ou réessayer plus tard.
+                  Vérifiez votre clé API ou réessayez plus tard.
                 </p>
               </div>
             </div>
