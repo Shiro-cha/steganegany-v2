@@ -15,7 +15,7 @@ export const generateContentWithGemini = async (
     sarcastic: "avec un ton sarcastique et ironique",
   };
 
-  const prompt = `Reformule ce message ${stylePrompts[style] || 'de manière créative'}. Ne retourne QUE le message reformaté sans commentaires, sans guillemets et sans texte supplémentaire. Message: ${message}`;
+  const prompt = `Reformule ce message en style ${stylePrompts[style] + ' de manière créative'}. Ne retourne QUE le message reformaté sans commentaires, sans guillemets et sans texte supplémentaire. Message: ${message}`;
 
   const response = await fetch(
     `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`,

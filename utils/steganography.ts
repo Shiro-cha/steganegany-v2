@@ -37,10 +37,10 @@ export function encodeMessageInImage(imageData: ImageData, message: string, para
 
   const lengthBinary = message.length.toString(2).padStart(32, "0")
 
-  // Encoder la longueur
+
   for (let i = 0; i < 32; i++) {
     if (pixelIndex + colorChannel < data.length) {
-      const bit = Number.parseInt(lengthBinary[i])
+       const bit = Number.parseInt(lengthBinary[i])
       data[pixelIndex + colorChannel] = (data[pixelIndex + colorChannel] & 0xfe) | bit
       pixelIndex += pixelStep * 4
     }
