@@ -47,6 +47,7 @@ export const generateContentWithGemini = async (
     throw new Error(errorData.error?.message || "Erreur API Gemini");
   }
 
+  //console.log(response);
   const data = await response.json();
   return data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || message;
 };
